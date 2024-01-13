@@ -1,0 +1,11 @@
+[Accuracy: 10.0% for 10 games, total time: 395.61s, average time per game: 39.56s]
+lost,0,1,81.05,1303
+lost,0,2,1.9,4
+lost,0,3,2.07,2
+lost,0,4,59.05,1323
+lost,0,5,62.86,1386
+lost,0,6,56.28,1335
+lost,0,7,1.8,4
+lost,0,8,61.21,1354
+won,1,8,64.67,1393
+lost,1,9,1.8,1
