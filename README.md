@@ -1,7 +1,7 @@
 # MinesweeperSolvers
 This repo inclues a SAT, QLearning and Search solver.
 
-
+The solvers use some source code from https://github.com/ripexz/python-tkinter-minesweeper 
 
 
 pip install -r requirements.txt
