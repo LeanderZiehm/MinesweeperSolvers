@@ -1,3 +1,5 @@
+"[Author: Leander Ziehm]"
+
 from z3 import *
 import sys
 import os
@@ -9,13 +11,13 @@ from MinsweeperFiles import minesweeper as minesweeperManager
 
 
 BOARD_SIZE = (8, 8)
-MAX_GAMES = 1000
-MINE_COUNT = -1
+MAX_GAMES = 1000000000000
+MINE_COUNT = None
+
 
 if len(sys.argv) >= 2:
-    firstActualArgument = sys.argv[1]
-    argTuple = eval(firstActualArgument)
-    BOARD_SIZE = argTuple
+    BOARD_SIZE = eval(sys.argv[1])
+
 
 if len(sys.argv) >= 3:
     MAX_GAMES = int(sys.argv[2])
@@ -30,11 +32,11 @@ UNKNOWN = -1
 def main():
     minesweeper = minesweeperManager.Create(BOARD_SIZE, MINE_COUNT)
     minesweeper.setupMaxGames(MAX_GAMES)
-    minesweeper.setupSaveMetrics(os.path.dirname(os.path.realpath(__file__)))
+    # minesweeper.setupSaveMetrics(os.path.dirname(os.path.realpath(__file__)))
 
     while True:
         boardString = minesweeper.getBoardString()
-        result = SAT(boardString)
+        result = SAT(boardString,minesweeper.MINE_COUNT)
         if result != {}:
             smallestTileFromSolution = min(result, key=result.get)
             minesweeper.clickTile(smallestTileFromSolution)
@@ -50,7 +52,7 @@ def main():
             minesweeper.restartGame()
 
 
-def SAT(boardString):
+def SAT(boardString,MINE_COUNT):
     sol = SimpleSolver()
     game = string_to_matrix(boardString)
     rows = len(game)
@@ -75,11 +77,12 @@ def SAT(boardString):
                         nx, ny = neighbor
                         if neighbor not in possibleMines:  # not already added
                             possibleMines[(nx, ny)] = Bool("possibleMines_%i,%i" % (nx, ny))
-                            # sol.add(mines[(nx, ny)] >= 0, mines[(nx, ny)] <= 1)
                         possibleMineNeighbours.append(possibleMines[(nx, ny)])
 
-                sol.add(currentTile == Sum([If(possibleMine, 1, 0) for possibleMine in possibleMineNeighbours]))
-                # sol.add(Sum(possibleMineNeighbours) == mineCountOfTile)
+                sol.add(currentTile == Sum([If(possibleMineNeighbour, 1, 0) for possibleMineNeighbour in possibleMineNeighbours]))
+
+
+
 
     mineCountSolutions = {}
 
@@ -121,4 +124,8 @@ def string_to_matrix(input_string):
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except:
+        pass
+

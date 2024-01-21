@@ -1,0 +1,117 @@
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.4 | EXPLORATION_PROB: 0.1 For 1000 Games
+[Accuracy: 18.88% for 1001 games with 2 bombs, total time: 18.93s, average time per game: 0.02s]
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.4 | EXPLORATION_PROB: 0.1 For 1000 Games
+[Accuracy: 20.1% for 1000 games with 2 bombs, total time: 18.83s, average time per game: 0.02s]
+
+
+LEARNING_RATE: 0.8 | DISCOUNT_FACTOR: 0.4 | EXPLORATION_PROB: 0.1 For 1000 Games
+[Accuracy: 14.0% for 1000 games with 2 bombs, total time: 17.99s, average time per game: 0.02s]
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.9 | EXPLORATION_PROB: 0.01 For 1000 Games
+[Accuracy: 19.4% for 1000 games with 2 bombs, total time: 16.97s, average time per game: 0.02s]
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.95 | EXPLORATION_PROB: 0.1 For 1000 Games
+[Accuracy: 15.0% for 1000 games with 2 bombs, total time: 16.86s, average time per game: 0.02s]
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.9 | EXPLORATION_PROB: 0.1 For 1000 Games
+[Accuracy: 18.98% for 1001 games with 2 bombs, total time: 17.36s, average time per game: 0.02s]
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.5 | EXPLORATION_PROB: 0.1 For 1000 Games
+[Accuracy: 21.5% for 1000 games with 2 bombs, total time: 16.57s, average time per game: 0.02s]
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.4 | EXPLORATION_PROB: 0.1 For 1000 Games
+[Accuracy: 17.5% for 1000 games with 2 bombs, total time: 17.78s, average time per game: 0.02s]
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.3 | EXPLORATION_PROB: 0.1 For 1000 Games
+[Accuracy: 21.4% for 1000 games with 2 bombs, total time: 17.53s, average time per game: 0.02s]
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.2 | EXPLORATION_PROB: 0.1 For 1000 Games
+[Accuracy: 22.0% for 1000 games with 2 bombs, total time: 17.69s, average time per game: 0.02s]
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.1 | EXPLORATION_PROB: 0.1 For 1000 Games
+[Accuracy: 20.7% for 1000 games with 2 bombs, total time: 17.88s, average time per game: 0.02s]
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.05 | EXPLORATION_PROB: 0.1 For 1000 Games
+[Accuracy: 20.2% for 1000 games with 2 bombs, total time: 18.61s, average time per game: 0.02s]
+
+
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.4 | EXPLORATION_PROB: 0.1 For 1000 Games
+[Accuracy: 22.1% for 1000 games with 2 bombs, total time: 21.64s, average time per game: 0.02s]
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.4 | EXPLORATION_PROB: 0.1 For 1000 Games
+[Accuracy: 19.0% for 1000 games with 2 bombs, total time: 24.84s, average time per game: 0.02s]
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.4 | EXPLORATION_PROB: 0.1 For 1000 Games
+[Accuracy: 22.1% for 1000 games with 2 bombs, total time: 24.99s, average time per game: 0.02s]
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.2 | EXPLORATION_PROB: 0.1 For 1000 Games
+[Accuracy: 20.58% for 1001 games with 2 bombs, total time: 22.36s, average time per game: 0.02s]
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.2 | EXPLORATION_PROB: 0.1 For 1000 Games
+[Accuracy: 20.4% for 1000 games with 2 bombs, total time: 21.98s, average time per game: 0.02s]
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.2 | EXPLORATION_PROB: 0.1 For 1000 Games
+[Accuracy: 21.8% for 1000 games with 2 bombs, total time: 20.27s, average time per game: 0.02s]
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.4 | EXPLORATION_PROB: 0.1 For 100 Games
+[Accuracy: 17.0% for 100 games with 2 bombs, total time: 2.02s, average time per game: 0.02s]
+
+
+
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.4 | EXPLORATION_PROB: 0.1 For 20000 Games
+[Accuracy: 44.22% for 20000 games with 2 bombs, total time: 457.33s, average time per game: 0.02s]
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.4 | EXPLORATION_PROB: 0.1 For 10 Games
+[Accuracy: 0.0% on 8x8 for 10 games with 10 bombs, total time: 0.9s, average time per game: 0.09s]
+
+
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.4 | EXPLORATION_PROB: 0.1
+[Accuracy: 0.0% on (8x8) for 10 games with 10 bombs, total time: 0.8s, average time per game: 0.08s]
+
+
+[LEARNING_RATE: (0.95) | DISCOUNT_FACTOR: (0.4) | EXPLORATION_PROB: (0.1)]
+[Accuracy: 0.0% on (8x8) for 10 games with 10 bombs, total time: 0.96s, average time per game: 0.1s]
+
+
+[LEARNING_RATE: (0.95) | DISCOUNT_FACTOR: (0.4) | EXPLORATION_PROB: (0.1)]
+[Accuracy: 0.01% on [8x8] for 20000 games with 10 bombs, total time: 1235.6s, average time per game: 0.06s]
+
+
+[LEARNING_RATE: (0.95) | DISCOUNT_FACTOR: (0.4) | EXPLORATION_PROB: (0.1)]
+[Accuracy: 0.0% on [16x16] for 20000 games with 40 bombs, total time: 2698.99s, average time per game: 0.13s]
+
+
+[LEARNING_RATE: (0.95) | DISCOUNT_FACTOR: (0.4) | EXPLORATION_PROB: (0.1)]
+[Accuracy: 0.0% on [16x16] for 1000 games with 40 bombs, total time: 175.99s, average time per game: 0.18s]
+
+
+[LEARNING_RATE: (0.95) | DISCOUNT_FACTOR: (0.4) | EXPLORATION_PROB: (0.1)]
+[Accuracy: 0.1% on [8x8] for 1000 games with 10 bombs, total time: 54.12s, average time per game: 0.05s]
+
+
+[LEARNING_RATE: (0.95) | DISCOUNT_FACTOR: (0.4) | EXPLORATION_PROB: (0.1)]
+[Accuracy: 34.5% on [4x4] for 1000 games with 2 bombs, total time: 19.22s, average time per game: 0.02s]
+
+

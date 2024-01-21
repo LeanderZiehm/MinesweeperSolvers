@@ -3,10 +3,9 @@ This repo inclues a SAT, QLearning and Search solver.
 
 The solvers use some source code from https://github.com/ripexz/python-tkinter-minesweeper 
 
-
 pip install -r requirements.txt
 
-
+Each python file comes with a batch file to start it. If you are on linux you can just copy the command to start it from the file into the terminal.
 
 This repo was created and tested with Python 3.9.0 using Windows 10
 

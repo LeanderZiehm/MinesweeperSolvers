@@ -1,0 +1,4 @@
+LEARNING_RATE: 0.95 | DISCOUNT_FACTOR: 0.5 | EXPLORATION_PROB: 0.1 For 20000 Games
+[Accuracy: 41.34% for 20000 games with 2 bombs, total time: 463.22s, average time per game: 0.02s]
+
+

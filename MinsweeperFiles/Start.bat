@@ -1,2 +1,0 @@
-py minesweeper.py
-pause

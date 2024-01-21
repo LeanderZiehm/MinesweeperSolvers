@@ -9,7 +9,7 @@ import sys
 import time
 
 sys.path.insert(1, os.path.join(sys.path[0], ".."))
-import socketPlotter
+# import socketPlotter
 
 AUTO_RESTART = FALSE
 SAVE_PATH = None
@@ -37,13 +37,12 @@ METRICS_FILE_NAME = ""
 
 
 class Create:
-    def __init__(self, SIZE=(8, 8), MINE_COUNT=-1):
+    def __init__(self, SIZE=(8, 8), MINE_COUNT=None):
         tk = Tk()
         tk.title("M")  # Minesweeper
 
-
         self.SIZE_X, self.SIZE_Y = SIZE
-        if MINE_COUNT <= 0:
+        if MINE_COUNT == None:
             MINE_PERCENTAGE = 0.156
             MINE_COUNT = round(self.SIZE_X * self.SIZE_Y * MINE_PERCENTAGE)
 
@@ -82,7 +81,6 @@ class Create:
         self.labels["losses"].grid(row=self.SIZE_X + 1, column=self.SIZE_Y - 2, columnspan=2)
         self.labels["wins"] = Label(self.frame, font=("Helvetica", 10))
         self.labels["wins"].grid(row=self.SIZE_X + 1, column=0, columnspan=2)
-
 
         self.tiles = {}
         self._allGridIndeciesForMineGeneration = list(itertools.product(range(self.SIZE_Y), range(self.SIZE_X)))
@@ -166,7 +164,7 @@ class Create:
     def startLivePlotter(self):
         global SOCKET_PLOTTER_ACTIVATED
         SOCKET_PLOTTER_ACTIVATED = True
-        socketPlotter.startClient()
+        # socketPlotter.startClient()
 
     def setupAutoRestart(self):
         global AUTO_RESTART
@@ -182,8 +180,6 @@ class Create:
     def setupMaxGames(self, maxgames):
         self.MAX_GAMES = maxgames
 
-
-
     def restartGame(self):
         self.setup()
         self.refreshLabels()
@@ -193,7 +189,7 @@ class Create:
         self.labels["losses"].config(text="L:" + str(self.loseCount))
         self.labels["wins"].config(text="W:" + str(self.winCount))
 
-    def gameOver(self, won, tileButton=None):
+    def setGameOver(self, won, tileButton=None):
         for y in range(0, self.SIZE_Y):
             for x in range(0, self.SIZE_X):
                 if self.tiles[y][x]["isMine"] == False and self.tiles[y][x]["state"] == STATE_FLAGGED:
@@ -223,7 +219,8 @@ class Create:
         if DEBUG:
             print(metrics)
         if SOCKET_PLOTTER_ACTIVATED:
-            socketPlotter.plot(self.winCount - self.loseCount)
+            pass
+            # socketPlotter.plot(self.winCount - self.loseCount)
 
         if self.winCount + self.loseCount >= self.MAX_GAMES:
             self.addGameSummaryHeader()
@@ -237,6 +234,26 @@ class Create:
 
     def getBombsLeft(self):
         return self.MINE_COUNT - self.flagCount
+
+    def get3x3WindowOfBoard(self, windowCenterPosition):
+        neighborPositons = self.getNeighborPostions(windowCenterPosition)
+        windowPositons = [windowCenterPosition] + neighborPositons
+
+        windowDict = {}
+
+        for pos in windowPositons:
+            y, x = pos
+
+            if self.tiles[y][x]["state"] == STATE_DEFAULT:
+                windowDict[pos] = -1
+            elif self.tiles[y][x]["state"] == STATE_CLICKED:
+                windowDict[pos] = self.tiles[y][x]["minesAround"]
+            elif self.tiles[y][x]["state"] == STATE_FLAGGED:
+                windowDict[pos] = -2
+            else:
+                assert False, "WINDOW IS DOING ELSE, this shouldn't happen LOL XD"
+
+        return windowDict
 
     def getAllInteractableTilesWithProbability(self):
         minesLeft = self.getBombsLeft()
@@ -253,6 +270,10 @@ class Create:
     def getInteractableNeighborPositions(self, tilePos):
         allNeighbours = self.getNeighborPostions(tilePos)
         return [n for n in allNeighbours if self.tiles[n[0]][n[1]]["state"] != STATE_CLICKED]
+
+    def getUnknownNeighborPositions(self, tilePos):
+        allNeighbours = self.getNeighborPostions(tilePos)
+        return [n for n in allNeighbours if self.tiles[n[0]][n[1]]["state"] == STATE_DEFAULT]  ##JUMP
 
     def getNumberNeighborPostitions(self, tilePos):
         allNeighbours = self.getNeighborPostions(tilePos)
@@ -328,26 +349,19 @@ class Create:
                 tile["isMine"] = False
                 tile["minesAround"] = len([n for n in self.getNeighborPostions(clickPos) if self.tiles[n[0]][n[1]]["isMine"] == True])
 
-
                 for n in oldNeighbors:
                     self.tiles[n[0]][n[1]]["minesAround"] -= 1
 
                 for n in newNeighbors:
                     actualBombCount = len([n for n in self.getNeighborPostions(n) if self.tiles[n[0]][n[1]]["isMine"] == True])
 
-
-
-
                     self.tiles[n[0]][n[1]]["minesAround"] = actualBombCount  # += 1
 
                     if self.tiles[n[0]][n[1]]["state"] == STATE_CLICKED:
                         self.tiles[n[0]][n[1]]["button"].config(image=self.images["numbers"][actualBombCount - 1])
 
-
-
-
             else:
-                self.gameOver(False, tileButton=tile["button"])
+                self.setGameOver(False, tileButton=tile["button"])
                 return
 
         if tile["minesAround"] == 0:
@@ -359,11 +373,15 @@ class Create:
             tile["state"] = STATE_CLICKED
             self.tilesUnveiled += 1
         if self.tilesUnveiled == self.GOOD_TILES_COUNT:
-            self.gameOver(True)
+            self.setGameOver(True)
 
         if DEBUG:
             if DEBUG_BOARD_STATE:
                 print(self.getBoardString())
+
+    def checkIfPositionIsFlagged(self, pos):
+        y, x = pos
+        return self.tiles[y][x]["state"] == STATE_FLAGGED
 
     def onClickFlag(self, tile):
         if tile["state"] == STATE_DEFAULT:
@@ -378,8 +396,8 @@ class Create:
                 self.correctFlagCount += 1
             else:
                 tile["button"].config(image=self.images["wrongFlag"])
-                self.gameOver(False)
-                input(f"!!!!!!!!!!!! {tile['position']} Flagged a non-mine tile. Press enter to continue!!!!!!!!!!!!!!!!")
+                self.setGameOver(False)
+                # input(f"!!!!!!!!!!!! {tile['position']} Flagged a non-mine tile. Press enter to continue!!!!!!!!!!!!!!!!")
 
         elif tile["state"] == STATE_FLAGGED:  # if already flagged then unflag
             tile["button"].config(image=self.images["unknown"])
@@ -415,8 +433,7 @@ class Create:
         tile["state"] = STATE_CLICKED
         self.tilesUnveiled += 1
         if self.tilesUnveiled == self.GOOD_TILES_COUNT:
-            self.gameOver(True)
-
+            self.setGameOver(True)
 
     def getAllInteractableTilesPostitions(self):
         actions = []
@@ -444,6 +461,11 @@ class Create:
             self.onClickFlag(self.tiles[y][x])
         self.tk.update()
 
+        if self.tiles[y][x]["isMine"] == True:
+            return True
+        else:
+            return False
+            # self.correctFlagCount += 1
 
     def getBoardString(self):
         boardState = ""
@@ -465,7 +487,10 @@ class Create:
                     boardX.append("M")
                 else:
                     boardX.append(self.tiles[y][x]["minesAround"])
-        return boardY
+        return
+
+    # def setGameOver(self):
+    #     self.gameOver(True)
 
     def isGameOver(self):
         return self.gameStatus == self.WON or self.gameStatus == self.LOST
@@ -483,7 +508,7 @@ class Create:
 
         global toSave
         header = (
-            f"[Accuracy: {round(self.winCount / (self.winCount + self.loseCount) * 100, 2)}% for {self.winCount+self.loseCount} games with {self.MINE_COUNT} bombs, total time: {round(time.time() - start_time,2)}s, average time per game: {round((time.time() - start_time) / (self.winCount + self.loseCount),2)}s]"
+            f"[Accuracy: {round(self.winCount / (self.winCount + self.loseCount) * 100, 2)}% on [{self.SIZE_X}x{self.SIZE_Y}] for {self.winCount+self.loseCount} games with {self.MINE_COUNT} bombs, total time: {round(time.time() - start_time,2)}s, average time per game: {round((time.time() - start_time) / (self.winCount + self.loseCount),2)}s]"
             + "\n"
         )
         toSave = header + ad + "\n" + toSave
@@ -516,11 +541,22 @@ def saveFile(fullFileName, textToSave, pathToSave=""):
 
 def main():
     print("[All coordinates are (y, x)]")
-    minesweeper = Create((8, 8))
-    print(minesweeper.getBoardStringAdmin())
+    print("[Auto restart enabled so you won't see the mines when losing]")
 
+    BOARD_SIZE = (8, 8)
+    MINE_COUNT = None
+    if len(sys.argv) >= 2:
+        BOARD_SIZE = eval(sys.argv[1])
+
+    if len(sys.argv) >= 3:
+        MINE_COUNT = int(sys.argv[2])
+
+    minesweeper = Create(BOARD_SIZE, MINE_COUNT)
+    minesweeper.setupAutoRestart()
     minesweeper.tk.mainloop()
 
+
+def setBoard(minesweeper):
     u = -1
     f = -2
     g = -3
