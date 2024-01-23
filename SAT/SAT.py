@@ -116,7 +116,7 @@ def string_to_matrix(input_string):
         row = []
         for char in input_string[i : i + size]:
             if char == "#" or char == "?":
-                row.append(UNKNOWN)  # "?"
+                row.append(UNKNOWN)
             else:
                 row.append(int(char))
         matrix.append(row)

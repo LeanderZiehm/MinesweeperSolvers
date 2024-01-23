@@ -121,9 +121,6 @@ def get_available_actions(stateDict):  # state is not needed because minesweeper
                 possibleActions.append(((x, y), FLAGGED))
                 possibleActions.append(((x, y), CLICK))
 
-    # if len(possibleActions) == 0:
-    #     print("No available actions")
-    #     input(possibleActions)
     return possibleActions
 
 
@@ -136,9 +133,6 @@ def getMaxReward(stateWindow):
 
     stateString = str(stateWindow)
 
-    # print(stateString, available_actions)
-    # if len(available_actions) == 0:
-    # input("No available actions")
     return max([qDict[stateString][action] for action in available_actions])
 
 
@@ -159,8 +153,6 @@ def getBestNextCenterPosition(minesweeper):
 
             if tileUnknownCount > 0:
                 unknownNeighborPositions = minesweeper.getUnknownNeighborPositions(tilePos)
-                # print("unknownNeighborPositions", unknownNeighborPositions)
-
                 return random.choice(unknownNeighborPositions)
 
     interactable = minesweeper.getAllInteractableTilesPostitions()
@@ -175,11 +167,8 @@ def calculateGloablPosFromWindowAction(actionPos, windowCenterPos):
 
 
 def getStateWindow(windowCenterPos):
-    # print("getStateWindow", windowCenterPos)
     windowDict = minesweeper.get3x3WindowOfBoard(windowCenterPos)
-    # print(windowDict)
     window = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-
     globalToLocalZeroZero = (windowCenterPos[0] - 1, windowCenterPos[1] - 1)
 
     for pos in windowDict:
@@ -188,8 +177,6 @@ def getStateWindow(windowCenterPos):
         localY = pos[1] - globalToLocalZeroZero[1]
         window[localX][localY] = value
 
-    # print(window)
-    # exit()
     return window
 
 
@@ -207,9 +194,6 @@ def main():
             else:
                 action = myArgMax(qDict, stateString, available_actions)
 
-            # print(stateWindow)
-            # if action == None:
-            #     input("No action")
             actionPos, actionType = action
             gloablPos = calculateGloablPosFromWindowAction(actionPos, windowCenterPosition)
 
@@ -218,25 +202,15 @@ def main():
             if actionType == FLAGGED:
                 correctlySetFlag = minesweeper.setFlag(gloablPos)
 
-                # if correctlySetFlag == False:
-                # print("Flagged wrong tile")
-                # input()
             elif actionType == CLICK:
                 minesweeper.clickTile(gloablPos)
 
             windowCenterPosition = getBestNextCenterPosition(minesweeper)
-            # if minesweeper.checkIfPositionIsFlagged(windowCenterPosition):
-            #     print("windowCenterPosition is Flagged")
-            #     input()
 
             if windowCenterPosition == "GAME OVER":
                 next_stateWindow = "GAME OVER"
             else:
                 next_stateWindow = getStateWindow(windowCenterPosition)
-
-            # if flaggedTileIsMine != None:
-            #     if flaggedTileIsMine == False:
-            #         minesweeper.setGameOver(won=False)
 
             reward = 0
             if minesweeper.isLose():
@@ -257,7 +231,6 @@ def main():
             stateWindow = next_stateWindow
             stateString = str(stateWindow)
 
-        # print("r")
         minesweeper.restartGame()
 
     onTrainingFinished()
